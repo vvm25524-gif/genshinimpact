@@ -4,9 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Genshin Impact Store — Донат по низким ценам</title>
-    <!-- Подключаем официальные иконки соцсетей Font Awesome -->
     
-    <link rel="stylesheet" href="https://cloudflare.com">
     <style>
         body { 
             font-family: 'Segoe UI', Roboto, sans-serif; 
@@ -16,7 +14,7 @@
             padding: 20px; 
             margin: 0;
         }
-        .container { max-width: 500px; margin: 0 auto; padding-bottom: 100px; }
+        .container { max-width: 500px; margin: 0 auto; padding-bottom: 40px; }
         h1 { color: #f3a922; font-size: 28px; margin-top: 30px; margin-bottom: 5px; }
         .subtitle { color: #8a8e9d; font-size: 14px; margin-bottom: 25px; }
         
@@ -48,23 +46,28 @@
         .product-desc { font-size: 13px; color: #a1a5b3; margin: 0 0 15px 0; line-height: 1.4; }
         .price { font-size: 22px; color: #39e079; font-weight: bold; text-align: right; }
 
-        /* Бледно-серые иконки соцсетей снизу */
+        /* Бледно-серые иконки-картинки снизу */
         .social-footer {
             margin-top: 50px;
-            padding-top: 20px;
+            padding-top: 25px;
             border-top: 1px solid #2d3148;
         }
         .social-link {
-            color: #575b70; /* Тот самый бледно-серый цвет */
-            font-size: 28px;
-            margin: 0 15px;
+            margin: 0 18px;
             text-decoration: none;
-            transition: color 0.3s ease;
             display: inline-block;
+            vertical-align: middle;
         }
-        /* При нажатии или наведении становятся чуть ярче */
-        .social-link:hover, .social-link:active {
-            color: #a1a5b3;
+        .social-link img {
+            width: 28px;
+            height: 28px;
+            filter: invert(38%) sepia(13%) saturate(541%) hue-rotate(196deg) brightness(91%) contrast(85%); /* Делает цвет бледно-серым */
+            transition: transform 0.2s ease, filter 0.2s ease;
+        }
+        /* При нажатии становятся чуть ярче */
+        .social-link:active img {
+            filter: invert(71%) sepia(9%) saturate(415%) hue-rotate(192deg) brightness(89%) contrast(87%);
+            transform: scale(1.1);
         }
     </style>
 
@@ -92,55 +95,61 @@ if(w.chaport)return;v3=w.chaport={};v3._q=[];v3._l={};v3.q=function(){v3._q.push
         <p class="subtitle">Официальный донат с зачислением по UID или с заходом на аккаунт</p>
         
         <!-- Кнопка со специальной ссылкой для принудительного открытия чата -->
-        <a href="tg://resolve?domain=Kykukykukyku" class="tg-button">💬 Написать в Telegram</a>
+        <a href="tg://resolve?domain=Kykukykukykukyku" class="tg-button">💬 Написать в Telegram</a>
         
         <!-- Товар 1 -->
         <div class="product-card">
-            <div class="product-title">🌙 1)Благословение полой луны</div>
+            <div class="product-title">🌙 1) Благословение полой луны (С заходом)</div>
             <div class="product-desc">30 дней подписки. Потребуется заход на аккаунт. Полная безопасность ваших данных.</div>
             <div class="price">430 руб.</div>
         </div>
         
          <!-- Товар 2 -->
         <div class="product-card">
-            <div class="product-title">🌙 2)Благословение полой луны</div>
-            <div class="product-desc">30 дней подписки.Донат по UID.</div>
+            <div class="product-title">🌙 2) Благословение полой луны (По UID)</div>
+            <div class="product-desc">30 дней подписки. Донат по UID.</div>
             <div class="price">480 руб.</div>
         </div>
         
         <!-- Товар 3 -->
         <div class="product-card">
-            <div class="product-title">⚔️ 3)Жемчужный хор (Батл пасс)</div>
+            <div class="product-title">⚔️ 3) Жемчужный хор (Батл пасс)</div>
             <div class="product-desc">Потребуется заход на аккаунт. Полная безопасность ваших данных.</div>
             <div class="price">1500 руб.</div>
         </div>
 
         <!-- Товар 4 -->
         <div class="product-card">
-            <div class="product-title">💎 4)Кристаллы Сотворения (6480 + 1600 Бонус)</div>
+            <div class="product-title">💎 4) Кристаллы Сотворения (6480 + 1600 Бонус)</div>
             <div class="product-desc">Самый выгодный пак гемов. Потребуется заход на аккаунт. Полная безопасность ваших данных.</div>
-            <div class="price">7300руб.</div>
+            <div class="price">7300 руб.</div>
         </div>
         
-                <!-- Товар 5-->
+        <!-- Товар 5-->
         <div class="product-card">
-            <div class="product-title">💎 5)Кристаллы Сотворения (6480 + 1600 Бонус)</div>
-            <div class="product-desc">Самый выгодный пак гемов.Донат по UID.</div>
-            <div class="price">9800руб.</div>
+            <div class="product-title">💎 5) Кристаллы Сотворения (6480 + 1600 Бонус)</div>
+            <div class="product-desc">Самый выгодный пак гемов. Донат по UID.</div>
+            <div class="price">9800 руб.</div>
         </div>
-        <!-- ПОДВАЛ С ИКОНКАМИ СОЦСЕТЕЙ (Рабочие временные ссылки) -->
+
+        <!-- ПОДВАЛ С ИКОНКАМИ-КАРТИНКАМИ (Теперь точно загрузятся) -->
         <div class="social-footer">
             <!-- Иконка Телеграм -->
-            <a href="tg://resolve?domain=Kykukykukykukyku" class="social-link" target="_blank"><i class="fa-brands fa-telegram"></i></a>
+            <a href="tg://resolve?domain=Kykukykukykukyku" class="social-link" target="_blank">
+                <img src="https://jsdelivr.net" alt="Telegram">
+            </a>
             
             <!-- Иконка ВК -->
-            <a href="https://vk.com" class="social-link" target="_blank"><i class="fa-brands fa-vk"></i></a>
+            <a href="https://vk.com" class="social-link" target="_blank">
+                <img src="https://jsdelivr.net" alt="VK">
+            </a>
             
             <!-- Иконка Ютуб -->
-            <a href="https://youtube.com" class="social-link" target="_blank"><i class="fa-brands fa-youtube"></i></a>
+            <a href="https://youtube.com" class="social-link" target="_blank">
+                <img src="https://jsdelivr.net" alt="YouTube">
+            </a>
         </div>
     </div>
 
 </body>
 </html>
-
