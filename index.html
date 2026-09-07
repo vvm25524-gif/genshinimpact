@@ -13,23 +13,40 @@
             padding: 20px; 
             margin: 0;
         }
-        .container { max-width: 500px; margin: 0 auto; padding-bottom: 80px; }
-        h1 { color: #f3a922; font-size: 28px; margin-top: 30px; }
-        .subtitle { color: #8a8e9d; font-size: 14px; margin-bottom: 30px; }
+        .container { max-width: 500px; margin: 0 auto; padding-bottom: 100px; }
+        h1 { color: #f3a922; font-size: 28px; margin-top: 30px; margin-bottom: 5px; }
+        .subtitle { color: #8a8e9d; font-size: 14px; margin-bottom: 25px; }
+        
+        /* Кнопка Телеграм */
+        .tg-button {
+            display: inline-block;
+            background: #2481cc;
+            color: #fff;
+            text-decoration: none;
+            padding: 12px 25px;
+            border-radius: 25px;
+            font-weight: bold;
+            font-size: 15px;
+            margin-bottom: 30px;
+            box-shadow: 0 4px 15px rgba(36,129,204,0.4);
+        }
+        
+        /* Карточки товаров */
         .product-card { 
             background: #1b1d2a; 
             border: 1px solid #2d3148; 
             padding: 20px; 
-            margin: 15px 0; 
+            margin: 20px 0; 
             border-radius: 12px; 
             box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+            text-align: left;
         }
         .product-title { font-size: 18px; font-weight: bold; margin: 0 0 10px 0; color: #eceef4; }
         .product-desc { font-size: 13px; color: #a1a5b3; margin: 0 0 15px 0; line-height: 1.4; }
-        .price { font-size: 22px; color: #39e079; font-weight: bold; }
+        .price { font-size: 22px; color: #39e079; font-weight: bold; text-align: right; }
     </style>
 
-    <!-- Ваш рабочий код Chaport. Теперь он будет работать без сброса! -->
+    <!-- Код чата Chaport -->
     <script type="text/javascript">
     (function(w,d,v3){
     w.chaportConfig = { appId : '6a9e05f4f3d66db4358ba895' };
@@ -42,18 +59,29 @@
         <h1>Genshin Impact Store</h1>
         <p class="subtitle">Официальный донат с зачислением по UID или с заходом на аккаунт</p>
         
+        <!-- Кнопка Быстрой связи -->
+        <a href="https://telegram.me" class="tg-button" target="_blank">💬 Написать в Telegram</a>
+        
+        <!-- Товар 1 -->
         <div class="product-card">
             <div class="product-title">🌙 Благословение полой луны</div>
-            <div class="product-desc">30 дней подписки. Быстрое получение. Потребуется UID и сервер.</div>
+            <div class="product-desc">30 дней подписки. потребуеться заход на аккаунт.Полная безопасность ваших данных.</div>
             <div class="price">500 руб.</div>
         </div>
         
+        <!-- Товар 2 -->
         <div class="product-card">
             <div class="product-title">⚔️ Жемчужный гимн (Батл пасс)</div>
-            <div class="product-desc">Потребуется заход на аккаунт. Полная безопасность данных.</div>
+            <div class="product-desc">Потребуется заход на аккаунт. Полная безопасность ваших данных.</div>
             <div class="price">1200 руб.</div>
         </div>
-  
+        
+        <!-- Товар 3 -->
+        <div class="product-card">
+            <div class="product-title">💎 Кристаллы Сотворения (6480 + 1600 Бонус)</div>
+            <div class="product-desc">Самый выгодный пак гемов. Зачисление по UID и серверу в течение 10 минут.</div>
+            <div class="price">8000 руб.</div>
+        </div>
     </div>
 
 </body>
