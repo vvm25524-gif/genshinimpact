@@ -4,15 +4,13 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Genshin Impact Store — Магазин</title>
-    
     <script type="module">
         import { initializeApp } from "https://gstatic.com";
         import { getAuth, signInWithPopup, GoogleAuthProvider, onAuthStateChanged } from "https://gstatic.com";
         import { getFirestore, collection, addDoc, query, orderBy, onSnapshot } from "https://gstatic.com";
         import { getAnalytics } from "https://gstatic.com";
-
         const firebaseConfig = {
-            apiKey: "AIzaSyAY2eLpwn-J-YKIPJjGfrrcqswmvhKw1Qo",
+            apiKey: "AIzaSyAY2elpwn-J-YKIPJjGfrrcqswmvhKw1Qo",
             authDomain: "://firebaseapp.com",
             projectId: "genshin-store-db",
             storageBucket: "genshin-store-db.firebasestorage.app",
@@ -20,18 +18,15 @@
             appId: "1:85291683727:web:f749cfa19dbd52c10085fa",
             measurementId: "G-XP62K98X31"
         };
-
         const app = initializeApp(firebaseConfig);
         const auth = getAuth(app);
         const db = getFirestore(app);
         const analytics = getAnalytics(app);
         const provider = new GoogleAuthProvider();
         let currentUser = null;
-
         window.loginInShop = function() {
             signInWithPopup(auth, provider).catch((error) => console.error(error));
         }
-
         onAuthStateChanged(auth, (user) => {
             const chatWrapper = document.getElementById("chat-box-wrapper");
             if (user) {
@@ -55,12 +50,10 @@
                 `;
             }
         });
-
         window.sendMessage = async function() {
             const input = document.getElementById("chat-input");
             const text = input.value.trim();
             if (!text || !currentUser) return;
-
             await addDoc(collection(db, "messages"), {
                 userId: currentUser.uid,
                 userName: currentUser.displayName,
@@ -70,7 +63,6 @@
             });
             input.value = "";
         }
-
         function loadMessages() {
             const q = query(collection(db, "messages"), orderBy("timestamp", "asc"));
             onSnapshot(q, (snapshot) => {
@@ -93,7 +85,6 @@
                 box.scrollTop = box.scrollHeight;
             });
         }
-    </script>
         <style>
         body { font-family: 'Segoe UI', Roboto, sans-serif; background-color: #11121d; color: #f4f5f7; text-align: center; padding: 0; margin: 0; }
         .container { max-width: 500px; margin: 0 auto; padding: 20px; padding-bottom: 40px; }
@@ -128,58 +119,46 @@
     </style>
     <link rel="icon" type="image/x-icon" href="favicon.ico">
 </head>
-<body>
-
+        <body>
     <div class="tabs-menu">
         <a href="index.html" class="tab-link">🏠 Главная</a>
         <a href="shop.html" class="tab-link active">🛒 Магазин</a>
     </div>
-
     <div class="container">
         <a href="tg://resolve?domain=Kykukykukykukyku" class="tg-button">💬 Написать в Telegram</a>
-        
         <div class="product-card">
             <div class="product-title">🌙 1) Благословение полой луны (С заходом)</div>
             <div class="product-desc">30 дней подписки. Потребуется заход на аккаунт. Полная безопасность ваших данных.</div>
             <div class="price">430 руб.</div>
         </div>
-        
         <div class="product-card">
             <div class="product-title">🌙 2) Благословение полой луны (По UID)</div>
             <div class="product-desc">30 дней подписки. Донат по UID.</div>
             <div class="price">480 руб.</div>
         </div>
-        
         <div class="product-card">
             <div class="product-title">⚔️ 3) Жемчужный хор (Батл пасс)</div>
             <div class="product-desc">Потребуется заход на аккаунт. Полная безопасность ваших данных.</div>
             <div class="price">1500 руб.</div>
         </div>
-
         <div class="product-card">
             <div class="product-title">💎 4) Кристаллы Сотворения (6480 + 1600 Бонус)</div>
             <div class="product-desc">Самый выгодный пак гемов. Потребуется заход на аккаунт. Полная безопасность ваших данных.</div>
             <div class="price">7300 руб.</div>
         </div>
-        
         <div class="product-card">
             <div class="product-title">💎 5) Кристаллы Сотворения (6480 + 1600 Бонус)</div>
             <div class="product-desc">Самый выгодный пак гемов. Донат по UID.</div>
             <div class="price">9800 руб.</div>
         </div>
-
         <div class="chat-section">
             <div id="chat-box-wrapper"></div>
         </div>
-
         <div class="social-footer">
             <a href="tg://resolve?domain=Kykukykukykukyku" class="social-link telegram" target="_blank"><svg viewBox="0 0 24 20"><path d="M23.91 1.412c-.172-.444-.576-.732-1.042-.744-1.258-.028-19.123 7.214-21.463 8.163-.564.228-.755.776-.412 1.18.232.274 2.853 3.328 3.58 4.148l4.475 3.551c.365.29.893.245 1.205-.102.502-.562 1.954-2.22 1.954-2.22l5.068 3.791c.373.28 1.01.218 1.288-.3l4.312-16.71c.143-.55-.07-1.127-.47-1.467zM16.326 7.492l-7.791 6.848-1.423-1.65 10.457-6.096c.074-.043.14-.02.164.043.023.064-.012.13-.107.205z"/></svg></a>
             <a href="https://vk.com" class="social-link vk" target="_blank"><svg viewBox="0 0 24 14"><path d="M23.45 1.06c.18-.6-.02-1.03-.88-1.03h-2.9c-.73 0-1.07.39-1.25.8 0 0-1.48 3.61-3.57 5.96-.68.67-.99.89-1.36.89-.18 0-.45-.22-.45-.85V1.06c0-.73-.2-1.03-.84-1.03H7.58c-.46 0-.73.34-.73.66 0 .7.69.86.76 2.83V8c0 .88-.16 1.04-.91 1.04-2 0-4.08-3.63-5.79-7.8-.28-.67-.51-.94-1.25-.94H.76c-.83 0-1 .39-1 .8 0 .75.96 4.49 4.47 9.4 2.34 3.36 5.64 5.18 8.65 5.18 1.8 0 2.03-.4 2.03-1.11v-2.6c0-.82.17-.98.75-.98.43 0 1.16.22 2.87 1.87 1.95 1.95 2.27 2.84 3.36 2.84h2.9c.83 0 1.25-.42 1.01-1.25-.26-.8-1.18-1.97-1.61-2.48-.43-.51-.31-.73 0-1.23 0 0 3.51-4.94 3.87-6.62z"/></svg></a>
             <a href="https://youtube.com" class="social-link youtube" target="_blank"><svg viewBox="0 0 24 24"><path d="M23.498 6.163a3.003 3.003 0 0 0-2.11-2.11C19.517 3.545 12 3.545 12 3.545s-7.516 0-9.387.508a3.003 3.003 0 0 0-2.11 2.11C0 8.033 0 12 0 12s0 3.967.502 5.837a3.003 3.003 0 0 0 2.11 2.11c1.871.508 9.387.508 9.387.508s7.517 0 9.387-.508a3.003 3.003 0 0 0 2.11-2.11C24 15.967 24 12 24 12s0-3.967-.502-5.837zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/></svg></a>
         </div>
     </div>
-
 </body>
 </html>
-
-    
