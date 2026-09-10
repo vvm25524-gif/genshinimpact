@@ -4,6 +4,57 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Genshin Impact Store — Главная</title>
+    
+    <!-- Подключаем официальные модули Firebase -->
+    <script type="module">
+        import { initializeApp } from "https://gstatic.com";
+        import { getAuth, signInWithPopup, GoogleAuthProvider, onAuthStateChanged, signOut } from "https://gstatic.com";
+        import { getAnalytics } from "https://gstatic.com";
+
+        // Твоя точная рабочая конфигурация Firebase с аналитикой
+        const firebaseConfig = {
+            apiKey: "AIzaSyAY2elpwn-J-YKIPJjGfrrcqswmvhKw1Qo",
+            authDomain: "://firebaseapp.com",
+            projectId: "genshin-store-db",
+            storageBucket: "genshin-store-db.firebasestorage.app",
+            messagingSenderId: "85291683727",
+            appId: "1:85291683727:web:f749cfa19dbd52c10085fa",
+            measurementId: "G-XP62K98X31"
+        };
+
+        const app = initializeApp(firebaseConfig);
+        const auth = getAuth(app);
+        const analytics = getAnalytics(app);
+        const provider = new GoogleAuthProvider();
+
+        window.loginWithGoogle = function() {
+            signInWithPopup(auth, provider).catch((error) => console.error(error));
+        }
+
+        window.logout = function() {
+            signOut(auth);
+        }
+
+        // Следим за входом: если вошел — показываем аватарку и кнопку "В магазин"
+        onAuthStateChanged(auth, (user) => {
+            const authBlock = document.getElementById("auth-block");
+            if (user) {
+                authBlock.innerHTML = `
+                    <div class="user-profile">
+                        <img src="${user.photoURL}" alt="Avatar">
+                        <p>Привет, <strong>${user.displayName}</strong>!</p>
+                    </div>
+                    <a href="shop.html" class="enter-button">🛒 Перейти к товарам</a>
+                    <br><button class="logout-btn" onclick="logout()">Выйти из аккаунта</button>
+                `;
+            } else {
+                authBlock.innerHTML = `
+                    <button class="enter-button google-btn" onclick="loginWithGoogle()">🔑 Войти через Google</button>
+                `;
+            }
+        });
+    </script>
+
     <style>
         body { 
             font-family: 'Segoe UI', Roboto, sans-serif; 
@@ -11,35 +62,30 @@
             color: #f4f5f7; 
             text-align: center; 
             padding: 0; 
-            margin: 0;
+            margin: 0; 
         }
         .container { max-width: 500px; margin: 0 auto; padding: 20px; padding-bottom: 40px; }
         
-        /* Вкладки в стиле Telegram */
-        .tabs-menu {
-            display: flex;
-            background: #1b1d2a;
-            border-bottom: 1px solid #2d3148;
-            position: sticky;
-            top: 0;
-            z-index: 100;
+        /* Вкладки в стиле папок Telegram */
+        .tabs-menu { 
+            display: flex; 
+            background: #1b1d2a; 
+            border-bottom: 1px solid #2d3148; 
+            position: sticky; 
+            top: 0; 
+            z-index: 100; 
         }
-        .tab-link {
-            flex: 1;
-            padding: 15px 0;
-            text-decoration: none;
-            color: #8a8e9d;
-            font-weight: bold;
-            font-size: 15px;
-            transition: color 0.2s ease;
-            border-bottom: 3px solid transparent;
+        .tab-link { 
+            flex: 1; 
+            padding: 15px 0; 
+            text-decoration: none; 
+            color: #8a8e9d; 
+            font-weight: bold; 
+            font-size: 15px; 
+            border-bottom: 3px solid transparent; 
         }
-        /* Активная вкладка светится золотом */
-        .tab-link.active {
-            color: #f3a922;
-            border-bottom-color: #f3a922;
-        }
-
+        .tab-link.active { color: #f3a922; border-bottom-color: #f3a922; }
+        
         h1 { color: #f3a922; font-size: 32px; margin-top: 30px; margin-bottom: 10px; }
         
         .about-text { 
@@ -52,51 +98,32 @@
             padding: 25px; 
             border-radius: 12px; 
             border: 1px solid #2d3148; 
-            margin-top: 20px;
+            margin-top: 20px; 
         }
         
-        .enter-button {
-            display: inline-block;
-            background: #f3a922;
-            color: #11121d;
-            text-decoration: none;
-            padding: 15px 40px;
-            border-radius: 30px;
-            font-weight: bold;
-            font-size: 18px;
-            margin-bottom: 50px;
-            box-shadow: 0 4px 20px rgba(243,169,34,0.3);
-        }
-
+        /* Кнопки */
+        .enter-button { display: inline-block; background: #f3a922; color: #11121d; text-decoration: none; padding: 15px 40px; border-radius: 30px; font-weight: bold; font-size: 18px; margin-bottom: 20px; box-shadow: 0 4px 20px rgba(243,169,34,0.3); border: none; cursor: pointer; }
+        .google-btn { background: #4285F4; color: white; box-shadow: 0 4px 15px rgba(66,133,244,0.3); }
+        
+        /* Профиль */
+        .user-profile { background: #1b1d2a; padding: 15px; border-radius: 12px; margin-bottom: 20px; border: 1px solid #2d3148; display: flex; align-items: center; justify-content: center; gap: 15px; }
+        .user-profile img { width: 45px; height: 45px; border-radius: 50%; border: 2px solid #f3a922; }
+        .logout-btn { background: none; border: none; color: #8a8e9d; cursor: pointer; text-decoration: underline; font-size: 13px; }
+        
+        /* Бледно-серые иконки соцсетей снизу */
         .social-footer { margin-top: 50px; padding-top: 25px; border-top: 1px solid #2d3148; }
         .social-link { margin: 0 20px; text-decoration: none; display: inline-block; vertical-align: middle; height: 32px; }
-        .social-link.telegram { width: 35px; }
-        .social-link.vk { width: 38px; }
+        .social-link.telegram { width: 35px; } 
+        .social-link.vk { width: 38px; } 
         .social-link.youtube { width: 32px; }
         .social-link svg { width: 100%; height: 100%; fill: #575b70; transition: fill 0.2s ease; }
         .social-link:active svg { fill: #a1a5b3; }
     </style>
-
-    <!-- Чат Chaport -->
-    <script type="text/javascript">
-    (function(w,d,v3){
-    w.chaportConfig = { appId : '6a9e05f4f3d66db4358ba895' };
-    if(w.chaport)return;v3=w.chaport={};v3._q=[];v3._l={};v3.q=function Rebecca(){v3._q.push(arguments)};v3.on=function(e,fn){if(!v3._l[e])v3._l[e]=[];v3._l[e].push(fn)};var s=d.createElement('script');s.type='text/javascript';s.async=true;s.src='https://chaport.com ss=d.getElementsByTagName('script');ss.parentNode.insertBefore(s,ss)})(window,document);
-    </script>
+    <link rel="icon" type="image/x-icon" href="favicon.ico">
 </head>
 <body>
-    <!-- Begin of Chaport Live Chat code -->
-<script type="text/javascript">
-(function(w,d,v3){
-w.chaportConfig = {
-appId : '6a9e05f4f3d66db4358ba895',
-};
 
-if(w.chaport)return;v3=w.chaport={};v3._q=[];v3._l={};v3.q=function(){v3._q.push(arguments)};v3.on=function(e,fn){if(!v3._l[e])v3._l[e]=[];v3._l[e].push(fn)};var s=d.createElement('script');s.type='text/javascript';s.async=true;s.src='https://app.chaport.ru/javascripts/insert.js';var ss=d.getElementsByTagName('script')[0];ss.parentNode.insertBefore(s,ss)})(window, document);
-</script>
-<!-- End of Chaport Live Chat code -->
-
-    <!-- Меню переключения -->
+    <!-- Вкладки (Папки Telegram) -->
     <div class="tabs-menu">
         <a href="index.html" class="tab-link active">🏠 Главная</a>
         <a href="shop.html" class="tab-link">🛒 Магазин</a>
@@ -104,18 +131,20 @@ if(w.chaport)return;v3=w.chaport={};v3._q=[];v3._l={};v3.q=function(){v3._q.push
 
     <div class="container">
         <h1>Genshin Impact Store</h1>
-        <link rel="icon" type="image/png" href="https://icons8.com">
+        
         <div class="about-text">
             Приветствуем в нашем магазине игровых ресурсов! Мы помогаем путешественникам Тейвата выгодно и безопасно приобретать Кристаллы Сотворения, Благословение полой луны и Боевой пропуск. <br><br>
-            <strong>Why выбирают нас?</strong><br>
+            <strong>Почему выбирают нас?</strong><br>
             • Полная безопасность ваших данных при заходе на аккаунт.<br>
             • Возможность легального доната чисто по вашему UID.<br>
             • Моментальное зачисление ресурсов в течение 10-15 минут.<br>
-            • Круглосуточная онлайн-поддержка прямо в чате сайта.
+            • Личный кабинет покупателя со входом через Google.
         </div>
         
-        <a href="shop.html" class="enter-button">🛒 Перейти к товарам</a>
+        <!-- Сюда скрипт выведет синюю кнопку Google или профиль с кнопкой "В магазин" -->
+        <div id="auth-block"></div>
         
+        <!-- Подвал с ровными иконками -->
         <div class="social-footer">
             <a href="tg://resolve?domain=Kykukykukykukyku" class="social-link telegram" target="_blank"><svg viewBox="0 0 24 20"><path d="M23.91 1.412c-.172-.444-.576-.732-1.042-.744-1.258-.028-19.123 7.214-21.463 8.163-.564.228-.755.776-.412 1.18.232.274 2.853 3.328 3.58 4.148l4.475 3.551c.365.29.893.245 1.205-.102.502-.562 1.954-2.22 1.954-2.22l5.068 3.791c.373.28 1.01.218 1.288-.3l4.312-16.71c.143-.55-.07-1.127-.47-1.467zM16.326 7.492l-7.791 6.848-1.423-1.65 10.457-6.096c.074-.043.14-.02.164.043.023.064-.012.13-.107.205z"/></svg></a>
             <a href="https://vk.com" class="social-link vk" target="_blank"><svg viewBox="0 0 24 14"><path d="M23.45 1.06c.18-.6-.02-1.03-.88-1.03h-2.9c-.73 0-1.07.39-1.25.8 0 0-1.48 3.61-3.57 5.96-.68.67-.99.89-1.36.89-.18 0-.45-.22-.45-.85V1.06c0-.73-.2-1.03-.84-1.03H7.58c-.46 0-.73.34-.73.66 0 .7.69.86.76 2.83V8c0 .88-.16 1.04-.91 1.04-2 0-4.08-3.63-5.79-7.8-.28-.67-.51-.94-1.25-.94H.76c-.83 0-1 .39-1 .8 0 .75.96 4.49 4.47 9.4 2.34 3.36 5.64 5.18 8.65 5.18 1.8 0 2.03-.4 2.03-1.11v-2.6c0-.82.17-.98.75-.98.43 0 1.16.22 2.87 1.87 1.95 1.95 2.27 2.84 3.36 2.84h2.9c.83 0 1.25-.42 1.01-1.25-.26-.8-1.18-1.97-1.61-2.48-.43-.51-.31-.73 0-1.23 0 0 3.51-4.94 3.87-6.62z"/></svg></a>
