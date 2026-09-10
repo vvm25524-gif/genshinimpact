@@ -35,7 +35,7 @@
                     <div class="chat-title">💬 Чат по сделке (Вы вошли как ${user.displayName})</div>
                     <div id="chat-box"></div>
                     <div class="chat-input-row">
-                        <input type="text" id="chat-input" placeholder="Напишите ваш UID, сервер и заказ...">
+                        <input type="text" id="chat-input" placeholder="Нажмите на товар выше, укажите ваш UID и сервер...">
                         <button class="send-btn" onclick="sendMessage()">Отправить</button>
                     </div>
                 `;
@@ -50,6 +50,18 @@
                 `;
             }
         });
+        window.selectProduct = function(productName) {
+            const input = document.getElementById("chat-input");
+            if (!currentUser) {
+                alert("Пожалуйста, сначала войдите через Google внизу страницы, чтобы активировать чат сделки!");
+                return;
+            }
+            if (input) {
+                input.value = `Хочу купить: ${productName}. Мой UID: `;
+                input.focus();
+                document.getElementById("chat-box-wrapper").scrollIntoView({ behavior: 'smooth' });
+            }
+        }
         window.sendMessage = async function() {
             const input = document.getElementById("chat-input");
             const text = input.value.trim();
@@ -85,17 +97,23 @@
                 box.scrollTop = box.scrollHeight;
             });
         }
-        <style>
+    </script>
+     <style>
         body { font-family: 'Segoe UI', Roboto, sans-serif; background-color: #11121d; color: #f4f5f7; text-align: center; padding: 0; margin: 0; }
         .container { max-width: 500px; margin: 0 auto; padding: 20px; padding-bottom: 40px; }
         .tabs-menu { display: flex; background: #1b1d2a; border-bottom: 1px solid #2d3148; position: sticky; top: 0; z-index: 100; }
         .tab-link { flex: 1; padding: 15px 0; text-decoration: none; color: #8a8e9d; font-weight: bold; font-size: 15px; border-bottom: 3px solid transparent; }
         .tab-link.active { color: #f3a922; border-bottom-color: #f3a922; }
         .tg-button { display: inline-block; background: #2481cc; color: #fff; text-decoration: none; padding: 12px 25px; border-radius: 25px; font-weight: bold; font-size: 15px; margin-top: 25px; margin-bottom: 15px; box-shadow: 0 4px 15px rgba(36,129,204,0.4); }
-        .product-card { background: #1b1d2a; border: 1px solid #2d3148; padding: 20px; margin: 20px 0; border-radius: 12px; text-align: left; box-shadow: 0 4px 15px rgba(0,0,0,0.3); }
+        
+        /* Кнопки-карточки товаров */
+        .product-card { background: #1b1d2a; border: 1px solid #2d3148; padding: 20px; margin: 20px 0; border-radius: 12px; text-align: left; box-shadow: 0 4px 15px rgba(0,0,0,0.3); display: block; width: 100%; box-sizing: border-box; cursor: pointer; transition: transform 0.2s, background-color 0.2s; -webkit-tap-highlight-color: transparent; }
+        .product-card:active { transform: scale(0.98); background: #23263a; }
+        
         .product-title { font-size: 18px; font-weight: bold; margin: 0 0 10px 0; color: #eceef4; }
         .product-desc { font-size: 13px; color: #a1a5b3; margin: 0 0 15px 0; line-height: 1.4; }
         .price { font-size: 22px; color: #39e079; font-weight: bold; text-align: right; }
+        
         .chat-section { background: #1b1d2a; border: 1px solid #2d3148; border-radius: 12px; margin-top: 40px; padding: 15px; text-align: left; }
         .chat-title { font-weight: bold; color: #f3a922; margin-bottom: 15px; font-size: 15px; border-bottom: 1px solid #2d3148; padding-bottom: 10px; }
         #chat-box { height: 250px; overflow-y: auto; padding: 5px; display: flex; flex-direction: column; gap: 12px; margin-bottom: 15px; }
@@ -119,38 +137,45 @@
     </style>
     <link rel="icon" type="image/x-icon" href="favicon.ico">
 </head>
-        <body>
+<body>
     <div class="tabs-menu">
         <a href="index.html" class="tab-link">🏠 Главная</a>
         <a href="shop.html" class="tab-link active">🛒 Магазин</a>
     </div>
     <div class="container">
         <a href="tg://resolve?domain=Kykukykukykukyku" class="tg-button">💬 Написать в Telegram</a>
-        <div class="product-card">
+        
+        <!-- Карточки превратились в кнопки (onclick) -->
+        <button class="product-card" onclick="selectProduct('Благословение полой луны (С заходом)')">
             <div class="product-title">🌙 1) Благословение полой луны (С заходом)</div>
             <div class="product-desc">30 дней подписки. Потребуется заход на аккаунт. Полная безопасность ваших данных.</div>
             <div class="price">430 руб.</div>
-        </div>
-        <div class="product-card">
+        </button>
+        
+        <button class="product-card" onclick="selectProduct('Благословение полой луны (По UID)')">
             <div class="product-title">🌙 2) Благословение полой луны (По UID)</div>
             <div class="product-desc">30 дней подписки. Донат по UID.</div>
             <div class="price">480 руб.</div>
-        </div>
-        <div class="product-card">
+        </button>
+        
+        <button class="product-card" onclick="selectProduct('Жемчужный хор (Батл пасс)')">
             <div class="product-title">⚔️ 3) Жемчужный хор (Батл пасс)</div>
             <div class="product-desc">Потребуется заход на аккаунт. Полная безопасность ваших данных.</div>
             <div class="price">1500 руб.</div>
-        </div>
-        <div class="product-card">
+        </button>
+        
+        <button class="product-card" onclick="selectProduct('Кристаллы Сотворения (6480+1600 С заходом)')">
             <div class="product-title">💎 4) Кристаллы Сотворения (6480 + 1600 Бонус)</div>
             <div class="product-desc">Самый выгодный пак гемов. Потребуется заход на аккаунт. Полная безопасность ваших данных.</div>
             <div class="price">7300 руб.</div>
-        </div>
-        <div class="product-card">
+        </button>
+        
+        <button class="product-card" onclick="selectProduct('Кристаллы Сотворения (6480+1600 По UID)')">
             <div class="product-title">💎 5) Кристаллы Сотворения (6480 + 1600 Бонус)</div>
             <div class="product-desc">Самый выгодный пак гемов. Донат по UID.</div>
             <div class="price">9800 руб.</div>
-        </div>
+        </button>
+
         <div class="chat-section">
             <div id="chat-box-wrapper"></div>
         </div>
